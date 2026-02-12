@@ -4,14 +4,14 @@
 
 | Membro | Foco Principal | Tecnologias |
 |--------|----------------|-------------|
-| **Dev 1** | Backend | Node.js, Express, Prisma, MySQL |
-| **Dev 2** | Frontend | React.js, Axios, CSS |
+| **João Francisco** | Backend | Node.js, Express, Prisma, MySQL |
+| **Iago Koch** | Frontend | React.js, Axios, CSS |
 
 ---
 
 ## 🗓️ Sprint 1 - Setup e Autenticação (Semana 1)
 
-### Dev 1 - Backend
+### João - Backend
 - [ ] Inicializar projeto Node.js com Express
 - [ ] Configurar Prisma e conexão MySQL
 - [ ] Criar schema do banco (todas as tabelas)
@@ -20,7 +20,7 @@
 - [ ] Implementar autenticação (JWT)
 - [ ] Criar middleware de autenticação
 
-### Dev 2 - Frontend
+### Iago - Frontend
 - [ ] Inicializar projeto React (Create React App ou Vite)
 - [ ] Configurar estrutura de pastas
 - [ ] Criar componentes base (Header, Footer, Layout)
@@ -38,7 +38,7 @@
 
 ## 🗓️ Sprint 2 - CRUD de Pets (Semana 2)
 
-### Dev 1 - Backend
+### João - Backend
 - [ ] Implementar POST /api/pets (criar)
 - [ ] Implementar GET /api/pets (listar)
 - [ ] Implementar GET /api/pets/:id (detalhe)
@@ -46,7 +46,7 @@
 - [ ] Implementar DELETE /api/pets/:id (remover)
 - [ ] Adicionar validações com express-validator
 
-### Dev 2 - Frontend
+### Iago - Frontend
 - [ ] Criar página "Meus Pets"
 - [ ] Criar componente de listagem de pets
 - [ ] Criar formulário de cadastro de pet
@@ -62,7 +62,7 @@
 
 ## 🗓️ Sprint 3 - Agendamento (Semana 3)
 
-### Dev 1 - Backend
+### João - Backend
 - [ ] Implementar CRUD de Serviços
 - [ ] Implementar gestão de Agenda (disponibilidade)
 - [ ] **Implementar transação de reserva (CRÍTICO)**
@@ -74,7 +74,7 @@
 - [ ] Implementar listagem de reservas
 - [ ] Implementar cancelamento de reserva
 
-### Dev 2 - Frontend
+### Iago - Frontend
 - [ ] Criar página de listagem de Cuidadores
 - [ ] Criar filtros de busca
 - [ ] Criar página de perfil do Cuidador
@@ -94,14 +94,14 @@
 
 ## 🗓️ Sprint 4 - Polimento (Semana 4)
 
-### Dev 1 - Backend
+### João - Backend
 - [ ] Revisar e otimizar queries
 - [ ] Adicionar tratamento de erros global
 - [ ] Documentar API (Swagger/Postman)
 - [ ] Testar cenários de concorrência
 - [ ] Criar seeds para dados de teste
 
-### Dev 2 - Frontend
+### Iago - Frontend
 - [ ] Melhorar responsividade
 - [ ] Adicionar loading states
 - [ ] Melhorar mensagens de erro
@@ -167,17 +167,6 @@
 - [Documentação React](https://react.dev)
 - [Documentação Express](https://expressjs.com)
 - [MySQL Transactions](https://dev.mysql.com/doc/refman/8.0/en/commit.html)
-
----
-
-## 📝 Notas de Reunião
-
-### Reunião Kickoff - [DATA]
-**Participantes:** Dev 1, Dev 2
-**Decisões:**
-- [ ] Definir horários de daily
-- [ ] Escolher ferramenta de comunicação
-- [ ] Criar repositório Git
 
 ---
 
