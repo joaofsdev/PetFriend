@@ -82,6 +82,88 @@ O PetFriend Connect oferece uma plataforma centralizada que:
 
 ---
 
+### UC03 - Gerenciar Usuários (Admin)
+
+**Ator:** Administrador
+
+**Pré-condições:** Usuário autenticado como Admin
+
+**Fluxo Principal:**
+1. Admin acessa o painel administrativo
+2. Admin clica em "Gestão de Usuários"
+3. Sistema exibe lista de usuários com filtros
+4. Admin pode buscar por nome, email ou tipo
+5. Admin seleciona um usuário
+6. Sistema exibe detalhes completos do usuário
+7. Admin pode editar dados ou desativar conta
+8. Sistema registra ação no log de auditoria
+9. Sistema exibe confirmação da ação
+
+**Fluxo Alternativo - Reativar Usuário:**
+- 7a. Admin clica em "Reativar" em usuário inativo
+- 7b. Sistema solicita confirmação
+- 7c. Sistema reativa o usuário
+- 7d. Sistema registra no log de auditoria
+
+---
+
+### UC04 - Analisar Denúncia (Admin)
+
+**Ator:** Administrador
+
+**Pré-condições:** 
+- Usuário autenticado como Admin
+- Existe denúncia pendente no sistema
+
+**Fluxo Principal:**
+1. Admin acessa "Denúncias" no painel
+2. Sistema lista denúncias ordenadas por data
+3. Admin seleciona uma denúncia pendente
+4. Sistema exibe detalhes: denunciante, denunciado, motivo
+5. Admin analisa as informações
+6. Admin muda status para "Em Análise"
+7. Admin decide a ação: resolver ou aplicar penalidade
+8. Admin adiciona parecer/observação
+9. Admin marca como "Resolvida" ou "Arquivada"
+10. Sistema notifica as partes envolvidas
+11. Sistema registra no log de auditoria
+
+**Ações Possíveis:**
+- Arquivar (denúncia improcedente)
+- Advertir usuário denunciado
+- Suspender temporariamente o denunciado
+- Banir permanentemente o denunciado
+
+---
+
+### UC05 - Configurar Sistema (Admin)
+
+**Ator:** Administrador
+
+**Pré-condições:** Usuário autenticado como Admin
+
+**Fluxo Principal:**
+1. Admin acessa "Configurações" no painel
+2. Sistema exibe configurações atuais
+3. Admin pode alterar:
+   - Taxa da plataforma (%)
+   - Tempo mínimo para cancelamento
+   - Limites de cadastro (pets, serviços)
+   - Ativar/desativar verificação obrigatória
+   - Ativar modo de manutenção
+4. Admin salva alterações
+5. Sistema valida os valores
+6. Sistema atualiza configurações
+7. Sistema registra alteração no log
+
+**Fluxo Alternativo - Modo Manutenção:**
+- 3a. Admin ativa "Modo Manutenção"
+- 3b. Sistema solicita mensagem personalizada
+- 3c. Sistema bloqueia acesso de usuários comuns
+- 3d. Apenas admins podem acessar
+
+---
+
 ## Detalhamento Técnico
 
 ### Transação de Agendamento (Código Conceitual)
@@ -158,6 +240,7 @@ datasource db {
 enum TipoUsuario {
   DONO
   CUIDADOR
+  ADMIN
 }
 
 enum StatusReserva {
@@ -297,6 +380,40 @@ model Log {
 | POST | `/api/reservas` | **Criar reserva (transação)** |
 | PATCH | `/api/reservas/:id/cancelar` | Cancelar reserva |
 
+#### Admin - Dashboard
+| Método | Rota | Descrição | Permissão |
+|--------|------|-----------|-----------|
+| GET | `/api/admin/dashboard` | Estatísticas gerais | ADMIN |
+
+#### Admin - Gestão de Usuários
+| Método | Rota | Descrição | Permissão |
+|--------|------|-----------|-----------|
+| GET | `/api/admin/usuarios` | Listar todos os usuários | ADMIN |
+| GET | `/api/admin/usuarios/:id` | Detalhes do usuário | ADMIN |
+| PUT | `/api/admin/usuarios/:id` | Atualizar usuário | ADMIN |
+| DELETE | `/api/admin/usuarios/:id` | Desativar usuário | ADMIN |
+| PATCH | `/api/admin/usuarios/:id/ativar` | Reativar usuário | ADMIN |
+
+#### Admin - Denúncias
+| Método | Rota | Descrição | Permissão |
+|--------|------|-----------|-----------|
+| GET | `/api/admin/denuncias` | Listar denúncias | ADMIN |
+| GET | `/api/admin/denuncias/:id` | Detalhes da denúncia | ADMIN |
+| PATCH | `/api/admin/denuncias/:id` | Atualizar status | ADMIN |
+| POST | `/api/admin/denuncias/:id/parecer` | Adicionar parecer | ADMIN |
+
+#### Admin - Configurações do Sistema
+| Método | Rota | Descrição | Permissão |
+|--------|------|-----------|-----------|
+| GET | `/api/admin/configuracoes` | Listar configurações | ADMIN |
+| PUT | `/api/admin/configuracoes/:chave` | Atualizar configuração | ADMIN |
+
+#### Admin - Logs de Auditoria
+| Método | Rota | Descrição | Permissão |
+|--------|------|-----------|-----------|
+| GET | `/api/admin/logs` | Listar logs de ações | ADMIN |
+| GET | `/api/admin/logs/:id` | Detalhes do log | ADMIN |
+
 ---
 
 ## Glossário
@@ -305,7 +422,10 @@ model Log {
 |-------|-----------|
 | **Dono** | Usuário proprietário de pets que busca cuidadores |
 | **Cuidador** | Usuário que oferece serviços de cuidado para pets |
+| **Admin** | Administrador do sistema com acesso total para gerenciar usuários, denúncias e configurações |
 | **Pet** | Animal de estimação cadastrado no sistema |
 | **Reserva** | Agendamento de serviço entre dono e cuidador |
 | **Agenda** | Slots de disponibilidade de um cuidador |
 | **Transação ACID** | Operação atômica que garante consistência do banco |
+| **Denúncia** | Reclamação de um usuário contra outro, analisada pelo admin |
+| **Log de Auditoria** | Registro de todas as ações administrativas no sistema |
